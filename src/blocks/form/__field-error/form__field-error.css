@@ -1,0 +1,15 @@
+.form__field-error {
+  margin-top: -25px;
+  margin-bottom: 13px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  width: 358px;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+}
+
+.form__field-error:last-of-type {
+  margin-bottom: 31px;
+}

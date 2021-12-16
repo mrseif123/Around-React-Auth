@@ -1,0 +1,12 @@
+.header__vector {
+  margin-bottom: 41px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .header__vector {
+    margin-bottom: 32px;
+    margin-left: 27px;
+    width: 126px;
+  }
+}

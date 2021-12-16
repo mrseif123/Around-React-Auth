@@ -1,0 +1,40 @@
+.root {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  max-width: 1280px;
+  /* max-height: 100vh; */
+  /* margin: 0 199px; */
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  align-self: center; */
+  text-rendering: optimizeLegibility;
+}
+@media screen and (min-width: 1281px) {
+  .root {
+    align-items: center;
+    margin: 0 auto;
+  }
+}
+@media screen and (max-width: 1279px) {
+  .root {
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 930px) {
+  .root {
+    margin: 0 19px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .root {
+    margin: 0 20px;
+  }
+}

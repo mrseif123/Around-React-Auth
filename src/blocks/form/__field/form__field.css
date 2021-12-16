@@ -1,0 +1,25 @@
+.form__field {
+  color: #000000;
+  background-color: transparent;
+  margin-right: auto;
+  margin-left: auto;
+  width: 358px;
+  height: 14px;
+  border: transparent;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 13.3px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 29.7px;
+}
+
+@media screen and (max-width: 525px) {
+  .form__field {
+    width: 238px;
+    padding-bottom: 9px;
+  }
+
+  .form__field:last-of-type {
+    margin-bottom: 60px;
+  }
+}

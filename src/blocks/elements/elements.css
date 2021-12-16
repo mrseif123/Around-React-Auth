@@ -1,0 +1,26 @@
+@import url("./__img/elements__img.css");
+@import url("./__item/elements__item.css");
+@import url("./__list/elements__list.css");
+@import url("./__title/elements__title.css");
+@import url("./__description/elements__description.css");
+@import url("./__like-btn/elements__like-btn.css");
+@import url("./__delete-btn/elements__delete-btn.css");
+@import url("./__likes/elements__likes.css");
+@import url("./__like-container/elements__like-container.css");
+
+
+
+.elements {
+  margin: 0;
+  padding: 0;
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (min-width:501px) and (max-width:620px) {
+  .elements {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}

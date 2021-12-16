@@ -1,0 +1,21 @@
+.popup__img-close-btn {
+  justify-content: end;
+  border: 0px;
+  background-color: transparent;
+  transform: rotate(45deg);
+  position: relative;
+  top: -10px;
+  left: 100%;
+  cursor: pointer;
+  margin-top: -600px;
+}
+
+.popup__img-close-btn:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 525px) {
+  .popup__img-close-btn {
+    right: -5px;
+  }
+}

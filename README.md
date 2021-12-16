@@ -1,4 +1,4 @@
-Around the U.S. project on React, featuring authorization and registration.
+# Around the U.S. project on React, featuring authorization and registration.
 
 This repository will contain your own front-end project on React with added authorization and registration features.
 Start working with your previously built front end code from Sprint 11.
