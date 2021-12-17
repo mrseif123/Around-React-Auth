@@ -7,6 +7,21 @@ class Api {
     this._auth = authorization;
   }
 
+  getAppInfo() {
+    return Promise.all([this.getInitialCards(), this.getUserInfo()]);
+  }
+
+  getInitialCards() {
+    return fetch(`${this._baseUrl}/cards`, {
+        headers: this._headers,
+      })
+      .then((res) =>
+        res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   _checkResponse(res) {
     if (!res.ok) {
       return Promise.reject(`${res.status} error!`);

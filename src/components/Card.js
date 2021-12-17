@@ -1,5 +1,5 @@
-import React from "react";
-import { CurrentUserContext } from "../contexts/CurrentUserContext"
+import React from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 function Card(props) {
 
@@ -36,16 +36,16 @@ function Card(props) {
   }
 
   return (
-    <li className="elements__item">
-      <img className="elements__img" src={props.card.link} alt={props.card.name} onClick={() => { props.onCardClick(props.card) }} />
-      <div className="elements__description" >
-        <h2 className="elements__title">{props.card.name}</h2>
-        <div className="elements__like-container">
-          <button type="button" aria-label="like image" className={cardLikeButtonClassName} onClick={isLiked ? handleCardDislike : handleCardLike}></button>
-          <p className="elements__likes">{props.card.likes.length}</p>
+    <li className='elements__item'>
+      <img className='elements__img' src={props.card.link} alt={props.card.name} onClick={() => { props.onCardClick(props.card) }} />
+      <div className='elements__description' >
+        <h2 className='elements__title'>{props.card.name}</h2>
+        <div className='elements__like-container'>
+          <button type='button' aria-label='like image' className={cardLikeButtonClassName} onClick={isLiked ? handleCardDislike : handleCardLike}></button>
+          <p className='elements__likes'>{props.card.likes.length}</p>
         </div>
       </div>
-      <button type="button" aria-label="delete icon" className={cardDeleteButtonClassName} onClick={handleCardDelete}></button>
+      <button type='button' aria-label='delete icon' className={cardDeleteButtonClassName} onClick={handleCardDelete}></button>
     </li>
   );
 }

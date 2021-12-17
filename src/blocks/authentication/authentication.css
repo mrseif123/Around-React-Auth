@@ -1,0 +1,14 @@
+@import url('./__container/authentication__container.css');
+@import url('./__link/authentication__link.css');
+@import url('./__nav/authentication__nav.css');
+@import url('./__title/authentication__title.css');
+
+.authentication {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 358px;
+  color: #ffffff;
+  justify-content: center;
+  padding: 0 11px;
+}

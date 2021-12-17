@@ -1,9 +1,14 @@
 @import url("./__vector/header__vector.css");
+@import url("./__email/header__email.css");
+@import url("./__link/header__link.css");
 
 .header {
   max-width: 880px;
   margin: 45px auto 40px auto;
   border-bottom: 1px solid rgb(84, 84, 84, 0.7);
+  display: flex;
+  position: relative;
+  align-items: center;
 }
 
 
