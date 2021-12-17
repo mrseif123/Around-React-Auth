@@ -1,17 +1,17 @@
 class Api {
   constructor({
     baseUrl,
-    authorization
+    headers
   }) {
     this._baseUrl = baseUrl;
-    this._auth = authorization;
+    this._headers = headers;
   }
 
   getAppInfo() {
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 
-  getInitialCards() {
+  async getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
         headers: this._headers,
       })
@@ -29,22 +29,16 @@ class Api {
     return res.json();
   }
 
-  async getUserInfo() {
-    const res = await fetch(`${this._baseUrl}/users/me`, {
-      headers: {
-        authorization: this._auth,
-      },
-    });
-    return this._checkResponse(res);
-  }
-
-  async getGroupCards() {
-    const res = await fetch(`${this._baseUrl}/cards`, {
-      headers: {
-        authorization: this._auth,
-      },
-    });
-    return this._checkResponse(res);
+  getUserInfo() {
+    return fetch(`${this._baseUrl}/users/me`, {
+        headers: this._headers,
+      })
+      .then((res) =>
+        res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
+      )
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   async updateProfile({
@@ -55,10 +49,7 @@ class Api {
   }) {
     const res = await fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._auth,
-        'Content-Type': 'application/json',
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name,
         about,
@@ -74,10 +65,7 @@ class Api {
   }) {
     const res = await fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._auth,
-        'Content-Type': 'application/json',
-      },
+      headers: this._headers,
       body: JSON.stringify({
         avatar: link
       }),
@@ -91,10 +79,7 @@ class Api {
   }) {
     const res = await fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: {
-        authorization: this._auth,
-        'Content-Type': 'application/json',
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name,
         link
@@ -106,10 +91,7 @@ class Api {
   async likeCard(cardId) {
     const res = await fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: 'PUT',
-      headers: {
-        authorization: this._auth,
-        'Content-Type': 'application/json',
-      },
+      headers: this._headers,
     });
     return this._checkResponse(res);
   }
@@ -117,10 +99,7 @@ class Api {
   async removeLike(cardId) {
     const res = await fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: 'DELETE',
-      headers: {
-        authorization: this._auth,
-        'Content-Type': 'application/json',
-      },
+      headers: this._headers,
     });
     return this._checkResponse(res);
   }
@@ -128,10 +107,7 @@ class Api {
   async deleteCard(cardId) {
     const res = await fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: {
-        authorization: this._auth,
-        'Content-Type': 'application/json',
-      },
+      headers: this._headers,
     });
     return this._checkResponse(res);
   }
@@ -140,7 +116,10 @@ class Api {
 
 const api = new Api({
   baseUrl: 'https://around.nomoreparties.co/v1/group-12',
-  authorization: '99b2ba57-5d11-48fc-a5da-07a4f1d8e8b5',
+  headers: {
+    Authorization: '99b2ba57-5d11-48fc-a5da-07a4f1d8e8b5',
+    "Content-Type": "application/json",
+  }
 });
 
 export default api;

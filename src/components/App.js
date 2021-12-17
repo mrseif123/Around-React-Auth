@@ -19,21 +19,22 @@ import api from '../utils/api';
 import authentication from '../utils/Authentication';
 
 function App() {
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = React.useState(false);
 
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState({});
-  const [cards, setCards] =  React.useState([]);
-  const [loggedIn, setLoggedIn] =  React.useState(false);
+  const [cards, setCards] = React.useState([]);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [userEmail, setUserEmail] = React.useState('');
+  const [tooltipMode, setTooltipMode] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [registered, setRegistered] = React.useState(false);
-  const [tooltipMode, setTooltipMode] = React.useState(false);
 
-  const history =  useHistory();
+  const history = useHistory();
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -44,9 +45,15 @@ function App() {
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
-
   function handleCardClick(card) {
     setSelectedCard(card);
+  }
+  function closeAllPopups() {
+    setIsAddPlacePopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setSelectedCard(null);
+    setIsInfoToolTipOpen(false);
   }
 
   function handleToolTip(success) {
@@ -54,46 +61,15 @@ function App() {
     setIsInfoToolTipOpen(true);
   }
 
-  function closeAllPopups() {
-    setIsAddPlacePopupOpen(false)
-    setIsEditAvatarPopupOpen(false)
-    setIsEditProfilePopupOpen(false)
-    setSelectedCard(null);
-    setIsInfoToolTipOpen(false);
-  }
-
-  React.useEffect(() => {
-    if (loggedIn) {
-      api.getUserInfo() 
-      .then((userProfile) => { setCurrentUser(userProfile)})
-      .catch((err) => { console.log(err) })
-    }
-  }, [loggedIn]);
-
-  React.useEffect(() => {
-    if (loggedIn) {
-      api
-        .getInitialCards()
-        .then((cards) => {
-          setCards(cards);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [loggedIn]);
-
-  function handleUpdateUser(data) {
+  function handleUpdateUser({ name, about }) {
     api
-      .updateProfile(data)
-      .then((res) => {
-        setCurrentUser(res);
+      .updateProfile(name, about)
+      .then((updateProfile) => {
+        setCurrentUser(updateProfile);
         setIsEditProfilePopupOpen(false);
       })
-      .then(() => closeAllPopups())
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((res) => closeAllPopups())
+      .catch((err) => console.log(err));
   }
 
   function handleUpdateAvatar({ avatar }) {
@@ -101,52 +77,47 @@ function App() {
       .updateAvatar(avatar)
       .then((updateProfile) => {
         setCurrentUser(updateProfile);
-        setIsEditAvatarPopupOpen(false)
+        setIsEditAvatarPopupOpen(false);
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  function handleAddPlace(data) {
-    api.addCard(data).then((newCard) => {
-      setCards([newCard, ...cards]);
-      closeAllPopups();
-    })
-    .then(() => closeAllPopups())
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((res) => closeAllPopups())
+      .catch((err) => console.log(err));
   }
 
   function handleCardLike(card) {
-    api.likeCard(card._id, false).then((newCard) => {
-        setCards((state) => state.map((item) => item._id === card._id ? newCard : item))
+    // Check one more time if this card was already liked
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    // Send a request to the API and getting the updated card data
+    api
+      .changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        // Create a new array based on the existing one and putting a new card into it
+        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+        // Update the state
+        setCards(newCards);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
   }
 
-  // function handleCardDislike(card) {
-  //   api.removeLike(card._id, true).then((newCard) => {
-  //       setCards((state) => state.map((item) => item._id === card._id ? newCard : item))
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
-
   function handleCardDelete(card) {
+    // const isOwn = card.owner._id === currentUser._id;
     api
       .deleteCard(card._id)
       .then(() => {
-        setCards(cards.filter((item) => item._id !== card._id));
+        setCards(cards.filter((c) => c._id !== card._id));
       })
-      .then(() => closeAllPopups())
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((res) => closeAllPopups())
+      .catch((err) => console.log(err));
+  }
+
+  function handleAddPlace({ title, link }) {
+    api
+      .addNewCard({ title, link })
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+      })
+      .then((res) => closeAllPopups())
+      .catch((err) => console.log(err));
   }
 
   React.useEffect(() => {
@@ -181,6 +152,7 @@ function App() {
 
   function handleLoginSubmit(e) {
     e.preventDefault();
+    // const [email, password] = [e.target.email.value, e.target.password.value];
     authentication
       .authorize(email, password)
       .then((data) => {
@@ -205,7 +177,7 @@ function App() {
       .catch((err) => console.log(err.message));
   };
 
-  function handleRegisterSubmit(e) {
+  function handleRegisterSubmit (e) {
     e.preventDefault();
     authentication
       .register(email, password)
@@ -244,7 +216,7 @@ function App() {
         .getContent(token)
         .then((res) => {
           setLoggedIn(true);
-          setEmail(res.data.email);
+          setUserEmail(res.data.email);
         })
         .catch((err) => {
           console.log(err);
@@ -252,7 +224,8 @@ function App() {
     } else {
       setLoggedIn(false);
     }
-  }, [loggedIn, email]);
+  }, [loggedIn, userEmail]);
+
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

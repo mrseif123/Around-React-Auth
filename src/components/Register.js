@@ -14,6 +14,7 @@ function Register({registred, handleRegister, history, email, setEmail, password
       <div className='authentication__container'>
         <h2 className='authentication__title'>Sign up</h2>
         <form
+          action="#"
           className = 'authentication'
           title='Sign up'
           onSubmit={handleRegister}
@@ -50,4 +51,4 @@ function Register({registred, handleRegister, history, email, setEmail, password
     </>
   );
 }
-export default Register; 
+export default Register;
