@@ -40,7 +40,7 @@ function Login({
           />
           <input className='form__input_dark' placeholder='Password' type='password' required value={password} onChange={(e) => setPassword(e.target.value)}
           />
-          <button type='submit' className='form__submit-button_dark'>Log in </button>
+          <button type='submit' className='form__submit-btn_dark'>Log in </button>
         </form>
         <Link className='authentication__link' to='/signup'>Not a member yet? Sign up here!</Link>
     </div>

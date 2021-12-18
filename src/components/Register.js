@@ -45,7 +45,7 @@ function Register({
           />
           <button
             type='submit'
-            className='form__submit-button_dark'
+            className = 'form__submit-btn_dark'
           >
             Sign up
           </button>
