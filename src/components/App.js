@@ -332,8 +332,7 @@ function App() {
           />
           <Footer />
         </Route>
-        {/* {loggedIn && <Footer />} */}
-        <Redirect from='*' to='/' />
+        <Redirect from='*' to='/main' />
       </Switch>
     </CurrentUserContext.Provider>
   );

@@ -9,18 +9,14 @@
 @import url("./__tools/form__tools.css");
 @import url("./__submit-btn/_dark/form__submit-btn_dark.css");
 @import url("./__input/_dark/form__input_dark.css");
+@import url("./__result/fomr__result.css");
+
 .form {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+  width: 430px;
+  position: relative;
   display: flex;
-  background-color: #0000007a;
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility .3s, opacity .3s linear;
-  z-index: 1;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .form_visible {

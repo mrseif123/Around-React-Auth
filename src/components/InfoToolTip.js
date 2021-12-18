@@ -8,7 +8,7 @@ function InfoToolTip(props) {
         props.isOpen ? 'form_visible' : ''
       }`}
     >
-      <div className='form__container'>
+      <div className='form__result'>
         <div
           className={`form__tools ${
              props.success === 'success'
