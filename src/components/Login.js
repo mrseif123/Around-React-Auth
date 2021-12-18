@@ -8,7 +8,7 @@ function Login({
     setUserEmail,
     password,
     setPassword,
-    handleLogin,
+    handleLoginSubmit,
     setEmail,
   }) {
 
@@ -28,7 +28,7 @@ function Login({
           action='#'
           className='authentication'
           title='Log in'
-          onSubmit={handleLogin}
+          onSubmit={handleLoginSubmit}
         >
           <input
             className='form__input_dark'

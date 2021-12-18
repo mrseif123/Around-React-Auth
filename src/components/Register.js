@@ -1,7 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Register({registred, handleRegister, history, email, setEmail, password, setPassword}) {
+function Register({
+  registered,
+  handleRegisterSubmit,
+  history,
+  email,
+  setEmail,
+  password,
+  setPassword,
+}) {
 
   React.useEffect(() => {
     if (localStorage.getItem('token')){
@@ -17,7 +25,7 @@ function Register({registred, handleRegister, history, email, setEmail, password
           action="#"
           className = 'authentication'
           title='Sign up'
-          onSubmit={handleRegister}
+          onSubmit={handleRegisterSubmit}
         >
           <input
             className='form__input_dark'

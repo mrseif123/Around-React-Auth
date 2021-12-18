@@ -19,7 +19,7 @@ import api from '../utils/api';
 import authentication from '../utils/auth';
 
 function App() {
-const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = React.useState(false);
@@ -149,11 +149,9 @@ const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false
     setEmail('');
     setPassword('');
   };
-
-  function handleLogin() {
-    setLoggedIn(true);
+  function handleLogin(){
+    setLoggedIn(true)
   }
-
   function handleLoginSubmit(e) {
     e.preventDefault();
     authentication
@@ -246,8 +244,8 @@ const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false
             setEmail={setEmail}
             password={password}
             setPassword={setPassword}
-            userEmail={setEmail}
-            setUserEmail={setEmail}
+            userEmail={setUserEmail}
+            setUserEmail={setUserEmail}
             handleLogin={handleLogin}
             handleLoginSubmit={handleLoginSubmit}
             onLogout={handleLogout}
@@ -270,7 +268,7 @@ const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false
             password={password}
             setPassword={setPassword}
             handleRegisterSubmit={handleRegisterSubmit}
-            setUserEmail={setEmail}
+            setUserEmail={setUserEmail}
             handleLogin={handleLogin}
             handleToolTip={handleToolTip}
           />
@@ -279,6 +277,7 @@ const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false
         <Route exact path='/'>
           {loggedIn ? <Redirect to='/main' /> : <Redirect to='/signin' />}
         </Route>
+
         <Route path='/main'>
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
