@@ -16,7 +16,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import api from '../utils/api';
-import authentication from '../utils/Authentication';
+import authentication from '../utils/auth';
 
 function App() {
 const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -68,7 +68,6 @@ const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false
         setCurrentUser(updateProfile);
         setIsEditProfilePopupOpen(false);
       })
-      .then((res) => closeAllPopups())
       .catch((err) => console.log(err));
   }
 
@@ -79,28 +78,33 @@ const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false
         setCurrentUser(updateProfile);
         setIsEditAvatarPopupOpen(false);
       })
-      .then((res) => closeAllPopups())
       .catch((err) => console.log(err));
   }
 
   function handleCardLike(card) {
-    // Check one more time if this card was already liked
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
-    // Send a request to the API and getting the updated card data
     api
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
-        // Create a new array based on the existing one and putting a new card into it
         const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
-        // Update the state
         setCards(newCards);
       })
       .catch((err) => console.log(err));
   }
 
+   React.useEffect(() => {
+     const closeByEscape = (e) => {
+       if (e.key === 'Escape') {
+         closeAllPopups();
+       }
+     }
+
+     document.addEventListener('keydown', closeByEscape)
+
+     return () => document.removeEventListener('keydown', closeByEscape)
+   }, [])
+
   function handleCardDelete(card) {
-    // const isOwn = card.owner._id === currentUser._id;
     api
       .deleteCard(card._id)
       .then(() => {
@@ -124,16 +128,16 @@ const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false
     if (loggedIn) {
       api.getUserInfo().then((userProfile) => {
         setCurrentUser(userProfile);
-      });
+      }).catch((err) => {
+        console.log(err)
+      })
+
       api
         .getInitialCards()
         .then((data) => {
           if (data) {
             setCards((cards) => [...cards, ...data]);
           }
-        })
-        .catch((err) => {
-          console.log(err);
         })
         .catch((err) => {
           console.log(err);
@@ -152,7 +156,6 @@ const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false
 
   function handleLoginSubmit(e) {
     e.preventDefault();
-    // const [email, password] = [e.target.email.value, e.target.password.value];
     authentication
       .authorize(email, password)
       .then((data) => {
@@ -252,12 +255,6 @@ const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false
             handleToolTip={handleToolTip}
             success={tooltipMode}
           />
-          <InfoToolTip
-            isOpen={isInfoToolTipOpen}
-            success={tooltipMode}
-            onClose={closeAllPopups}
-            loggedIn={loggedIn}
-          />
         </Route>
 
         <Route path='/signup'>
@@ -277,12 +274,7 @@ const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false
             handleLogin={handleLogin}
             handleToolTip={handleToolTip}
           />
-          <InfoToolTip
-            isOpen={isInfoToolTipOpen}
-            success={tooltipMode}
-            onClose={closeAllPopups}
-            loggedIn={loggedIn}
-          /></Route>
+          </Route>
 
         <Route exact path='/'>
           {loggedIn ? <Redirect to='/main' /> : <Redirect to='/signin' />}
@@ -310,7 +302,12 @@ const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false
             onClose={closeAllPopups}
           />
           <ImagePopup onClose={closeAllPopups} card={selectedCard} />
-
+          <InfoToolTip
+            isOpen={isInfoToolTipOpen}
+            success={tooltipMode}
+            onClose={closeAllPopups}
+            loggedIn={loggedIn}
+          />
           <Header
             loggedIn={loggedIn}
             userEmail={email}

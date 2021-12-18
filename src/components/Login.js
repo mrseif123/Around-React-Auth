@@ -19,11 +19,10 @@ function Login({
       history.push('/main');
       setUserEmail(email || userEmail);
     }
-  });
+  }, [loggedIn]);
 
   return (
-    <>
-      <div className='authentication__container'>
+    <div className='authentication__container'>
         <h2 className='authentication__title'>Log in</h2>
         <form
           action='#'
@@ -41,11 +40,10 @@ function Login({
           />
           <input className='form__input_dark' placeholder='Password' type='password' required value={password} onChange={(e) => setPassword(e.target.value)}
           />
-          <button type='submit' className='form__submit-button_dark' onClick={handleLogin} to='/main' >Log in </button>
+          <button type='submit' className='form__submit-button_dark'>Log in </button>
         </form>
         <Link className='authentication__link' to='/signup'>Not a member yet? Sign up here!</Link>
-      </div>
-    </>
+    </div>
   );
 }
-export default Login; 
+export default Login;

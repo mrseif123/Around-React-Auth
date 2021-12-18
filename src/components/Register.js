@@ -38,8 +38,6 @@ function Register({registred, handleRegister, history, email, setEmail, password
           <button
             type='submit'
             className='form__submit-button_dark'
-            onSubmit={handleRegister}
-            to='/'
           >
             Sign up
           </button>

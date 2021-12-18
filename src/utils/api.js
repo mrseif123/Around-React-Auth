@@ -15,12 +15,9 @@ class Api {
     return fetch(`${this._baseUrl}/cards`, {
         headers: this._headers,
       })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
+      .then((res) => {
+        return this._checkResponse(res) }
       )
-      .catch((err) => {
-        console.log(err);
-      });
   }
   _checkResponse(res) {
     if (!res.ok) {
@@ -33,12 +30,9 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
         headers: this._headers,
       })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((res) => {
+        return this._checkResponse(res)
+      })
   }
 
   async updateProfile({

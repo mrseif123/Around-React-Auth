@@ -3,11 +3,21 @@ class Authentication {
     this.options = options;
   }
 
+  _checkResponse(res) {
+    if (!res.ok) {
+      return Promise.reject(`${res.status} error!`);
+    }
+    return res.json();
+  }
+
   register(email, password) {
     return this.request('/signup', 'POST', JSON.stringify({
       email,
       password
-    }));
+    }))
+    .then((res) => {
+      return this._checkResponse(res)
+    })
   }
   authorize(userid, password) {
     return this.request(
@@ -17,7 +27,10 @@ class Authentication {
         email: userid,
         password: password
       })
-    );
+    )
+    .then((res) => {
+      return this._checkResponse(res)
+    })
   }
 
   async getContent(token) {
@@ -27,12 +40,9 @@ class Authentication {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-    }).then(async (res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      const body = await res.json();
-      return Promise.reject(body.error || body.message);
+    })
+    .then((res) => {
+      return this._checkResponse(res)
     });
   }
 
@@ -45,7 +55,7 @@ class Authentication {
         body,
       })
       .then((res) => {
-        return res.json();
+        return this._checkResponse(res)
       })
       .then((data) => {
         if (!data.message) {

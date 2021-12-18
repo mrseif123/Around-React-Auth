@@ -16,14 +16,18 @@ function AddPlacePopup(props) {
   function handleSubmit(e) {
     e.preventDefault()
     props.onAddPlace({ name, link })
-    document.getElementById('popup_add').reset();
   }
+
+  React.useEffect(() => {
+    setName('');
+    setLink('');
+  }, [props.isOpen]);
 
   return (
     <PopupWithForm name='add' title='New Place' isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
-      <input className='form__field form__field_title' type='text' onChange={handleNameChange} name='about' id='title' placeholder='Title' required minLength={1} maxLength={30} />
+      <input className='form__field form__field_title' type='text' onChange={handleNameChange} value={name} name='about' id='title' placeholder='Title' required minLength={1} maxLength={30} />
       <span className='form__field-error title-error' />
-      <input className='form__field form__field_link' type='url' onChange={handleLinkChange} name='link' id='link' placeholder='Image link' required />
+      <input className='form__field form__field_link' type='url' onChange={handleLinkChange} value={link}  name='link' id='link' placeholder='Image link' required />
       <span className='form__field-error link-error' />
     </PopupWithForm>
   )
