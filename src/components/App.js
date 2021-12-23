@@ -114,9 +114,10 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function handleAddPlace({ title, link }) {
+  function handleAddPlace({ name, link }) {
+    // console.log(title, link)
     api
-      .addCard({ title, link })
+      .addCard({ name, link })
       .then((newCard) => {
         setCards([newCard, ...cards]);
       })
