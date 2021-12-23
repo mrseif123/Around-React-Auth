@@ -157,6 +157,7 @@ function App() {
     authentication
       .authorize(email, password)
       .then((data) => {
+        console.log(data)
         if (data && data.token) {
           handleLogin();
         } else {

@@ -9,7 +9,7 @@
 @import url("./__tools/form__tools.css");
 @import url("./__submit-btn/_dark/form__submit-btn_dark.css");
 @import url("./__input/_dark/form__input_dark.css");
-@import url("./__result/fomr__result.css");
+@import url("./__result/form__result.css");
 
 .form {
   width: 430px;

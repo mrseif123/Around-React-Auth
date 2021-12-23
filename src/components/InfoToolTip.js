@@ -17,7 +17,6 @@ function InfoToolTip(props) {
           }`}
         />
         <p className='form__tools-message'>
-          {/* {message} */}
           {props.success === 'success'
             ? 'Success! You have now been registered.'
             : 'Oops, something went wrong! Please try again.'}
