@@ -2,7 +2,6 @@ import React from 'react';
 import closingButtonImage from '../images/profile-add-icon.svg'
 
 function InfoToolTip(props) {
-  console.log(props)
   return (
     <section className={`popup ${props.isOpen ? 'popup_visible' : ''}`}>
       <div className = 'popup__container' >
