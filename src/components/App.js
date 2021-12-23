@@ -237,6 +237,12 @@ function App() {
             onLogout={handleLogout}
             link={{ description: 'Sign up', to: '/signup' }}
           />
+          <InfoToolTip
+            isOpen={isInfoToolTipOpen}
+            success={tooltipMode}
+            onClose={closeAllPopups}
+            loggedIn={loggedIn}
+          />
           <Login
             loggedIn={loggedIn}
             email={email}
@@ -248,9 +254,6 @@ function App() {
             handleLogin={handleLogin}
             handleLoginSubmit={handleLoginSubmit}
             onLogout={handleLogout}
-            isOpen={isInfoToolTipOpen}
-            handleToolTip={handleToolTip}
-            success={tooltipMode}
           />
         </Route>
 
@@ -260,8 +263,13 @@ function App() {
             loggedIn={loggedIn}
             link={{ description: 'Log in', to: '/signin' }}
           />
+          <InfoToolTip
+            isOpen={isInfoToolTipOpen}
+            success={tooltipMode}
+            onClose={closeAllPopups}
+            loggedIn={loggedIn}
+          />
           <Register
-            registered={registered}
             email={email}
             setEmail={setEmail}
             password={password}
@@ -269,7 +277,6 @@ function App() {
             handleRegisterSubmit={handleRegisterSubmit}
             setUserEmail={setUserEmail}
             handleLogin={handleLogin}
-            handleToolTip={handleToolTip}
           />
           </Route>
 
@@ -278,12 +285,7 @@ function App() {
         </Route>
 
         <Route path='/main'>
-          <InfoToolTip
-            isOpen={isInfoToolTipOpen}
-            success={tooltipMode}
-            onClose={closeAllPopups}
-            loggedIn={loggedIn}
-          />
+
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}

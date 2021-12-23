@@ -2,10 +2,10 @@ import React from 'react';
 import closingButtonImage from '../images/profile-add-icon.svg'
 
 function InfoToolTip(props) {
-
+  console.log(props)
   return (
     <section className={`popup ${props.isOpen ? 'popup_visible' : ''}`}>
-      <div div className = 'popup__container' >
+      <div className = 'popup__container' >
         <div
           className={`form__tooltip ${
             props.success === 'success'
@@ -18,8 +18,8 @@ function InfoToolTip(props) {
             ? 'Success! You have now been registered.'
             : 'Oops, something went wrong! Please try again.'}
         </p>
-          <button type='button' aria-label='close profile editing form' className='form__close-btn' onClick={props.onClose}>
-            <img className='form__close-img' src={closingButtonImage} alt='close button' />
+          <button type='button' aria-label='close profile editing form' className='popup__tooltip-close-btn' onClick={props.onClose}>
+            <img className='popup__tooltip-img' src={closingButtonImage} alt='close button' />
           </button>
       </div>
     </section>
