@@ -35,10 +35,9 @@ function Main(props) {
           {props.cards.map((card) => (
             <Card key={card._id}
               card={card}
-              onCardClick={props.onCardClick} 
-              onDeleteClick={props.handleCardDelete}
-              onCardLike={props.handleCardLike}
-              onCardDislike={props.handleCardDislike}
+              onCardClick={ props.onCardClick }
+              onCardDelete={ props.onCardDelete }
+              onCardLike = { props.onCardLike }
               />
           ))}
         </ul>

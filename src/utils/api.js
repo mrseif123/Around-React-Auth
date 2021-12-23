@@ -26,7 +26,7 @@ class Api {
     return res.json();
   }
 
-  getUserInfo() {
+  async getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
         headers: this._headers,
       })
@@ -67,16 +67,13 @@ class Api {
     return this._checkResponse(res);
   }
 
-  async addCard({
-    name,
-    link
-  }) {
+  async addCard(data) {
     const res = await fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        name,
-        link
+        name: data.title,
+        link: data.link,
       }),
     });
     return this._checkResponse(res);
@@ -105,8 +102,22 @@ class Api {
     });
     return this._checkResponse(res);
   }
-}
 
+
+  changeLikeCardStatus(cardId, isLiked) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+        headers: this._headers,
+        method: isLiked ? "DELETE" : "PUT",
+      })
+      .then((res) =>
+        res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+}
 
 const api = new Api({
   baseUrl: 'https://around.nomoreparties.co/v1/group-12',

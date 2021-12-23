@@ -18,7 +18,6 @@ function Register({
   }, [history]);
 
   return (
-    <>
       <div className='authentication__container'>
         <h2 className='authentication__title'>Sign up</h2>
         <form
@@ -54,7 +53,6 @@ function Register({
           Already a member? Log in here!
         </Link>
       </div>
-    </>
   );
 }
 export default Register;

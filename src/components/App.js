@@ -116,7 +116,7 @@ function App() {
 
   function handleAddPlace({ title, link }) {
     api
-      .addNewCard({ title, link })
+      .addCard({ title, link })
       .then((newCard) => {
         setCards([newCard, ...cards]);
       })
