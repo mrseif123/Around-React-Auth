@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Register({
-  registered,
   handleRegisterSubmit,
   history,
   email,
@@ -12,6 +11,9 @@ function Register({
 }) {
 
   React.useEffect(() => {
+    if (!history){
+      history = []
+    }
     if (localStorage.getItem('token')){
       history.push('/main')
     }
@@ -45,6 +47,7 @@ function Register({
           <button
             type='submit'
             className = 'form__submit-btn_dark'
+            onSubmit={handleRegisterSubmit}
           >
             Sign up
           </button>

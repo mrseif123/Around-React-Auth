@@ -211,7 +211,6 @@ function App() {
 
   React.useEffect(() => {
     const token = localStorage.getItem('token');
-
     if (token) {
       authentication
         .getContent(token)
@@ -279,6 +278,12 @@ function App() {
         </Route>
 
         <Route path='/main'>
+          <InfoToolTip
+            isOpen={isInfoToolTipOpen}
+            success={tooltipMode}
+            onClose={closeAllPopups}
+            loggedIn={loggedIn}
+          />
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
@@ -301,13 +306,7 @@ function App() {
             onClose={closeAllPopups}
           />
           <ImagePopup onClose={closeAllPopups} card={selectedCard} />
-          <InfoToolTip
-            isOpen={isInfoToolTipOpen}
-            success={tooltipMode}
-            onClose={closeAllPopups}
-            loggedIn={loggedIn}
-            name={"result"}
-          />
+
           <Header
             loggedIn={loggedIn}
             userEmail={email}
