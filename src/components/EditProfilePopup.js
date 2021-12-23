@@ -7,12 +7,12 @@ import {
 function EditProfilePopup(props){
   const currentUser = React.useContext(CurrentUserContext)
   const [name, setName] = React.useState('');
-  const [description, setDescription] = React.useState('');
+  const [about, setAbout] = React.useState('');
 
 
   React.useEffect(() => {
     setName(currentUser && currentUser.name);
-    setDescription(currentUser && currentUser.about)
+    setAbout(currentUser && currentUser.about)
   }, [currentUser, props.isOpen])
 
   function handleNameChange(e){
@@ -20,14 +20,14 @@ function EditProfilePopup(props){
   }
 
   function handleDescriptionChange(e){
-    setDescription(e.target.value)
+    setAbout(e.target.value)
   }
 
   function handleSubmit(e){
     e.preventDefault()
     props.onUpdateUser({
       name: name,
-      about: description
+      about: about
     })
   }
 
@@ -35,7 +35,7 @@ function EditProfilePopup(props){
       <PopupWithForm name='form' title='Edit Profile' isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit} >
         <input className='form__field form__field_name' type='text' name='name' id='fullName' placeholder='Full Name' required minLength={2} maxLength={40} onChange={handleNameChange} value={name || ""}/>
         <span className='form__field-error fullName-error' />
-        <input className='form__field form__field_about' type='text' name='about' id='about' placeholder='About' required minLength={2} maxLength={200} onChange={handleDescriptionChange} value={description || ""} />
+        <input className='form__field form__field_about' type='text' name='about' id='about' placeholder='About' required minLength={2} maxLength={200} onChange={handleDescriptionChange} value={about || ""} />
         <span className='form__field-error about-error' />
       </PopupWithForm>
   )

@@ -63,7 +63,7 @@ function App() {
 
   function handleUpdateUser({ name, about }) {
     api
-      .updateProfile(name, about)
+      .updateProfile({name, about})
       .then((updateProfile) => {
         setCurrentUser(updateProfile);
         setIsEditProfilePopupOpen(false);
@@ -115,7 +115,6 @@ function App() {
   }
 
   function handleAddPlace({ name, link }) {
-    // console.log(title, link)
     api
       .addCard({ name, link })
       .then((newCard) => {

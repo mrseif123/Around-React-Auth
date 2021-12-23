@@ -35,33 +35,21 @@ class Api {
       })
   }
 
-  async updateProfile({
-    name,
-    about,
-    id,
-    link
-  }) {
+  async updateProfile(data) {
     const res = await fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
-      body: JSON.stringify({
-        name,
-        about,
-        id,
-        link
-      }),
+      body: JSON.stringify(data),
     });
     return this._checkResponse(res);
   }
 
-  async updateAvatar({
-    link
-  }) {
+  async updateAvatar(data) {
     const res = await fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: link
+        avatar: data
       }),
     });
     return this._checkResponse(res);
