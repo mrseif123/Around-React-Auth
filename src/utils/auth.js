@@ -14,11 +14,9 @@ class Authentication {
     return this.request('/signup', 'POST', JSON.stringify({
       email,
       password
-    }))
-    .then((res) => {
-      return this._checkResponse(res)
-    })
+    }));
   }
+
   authorize(userid, password) {
     return this.request(
       '/signin',
@@ -27,10 +25,7 @@ class Authentication {
         email: userid,
         password: password
       })
-    )
-    .then((res) => {
-      return this._checkResponse(res)
-    })
+    );
   }
 
   async getContent(token) {

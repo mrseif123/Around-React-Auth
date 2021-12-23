@@ -172,7 +172,7 @@ function App() {
             );
           }
         }
-      })
+      }).catch((err) => {console.log(err)})
       .then(resetForm)
       .then(() => history.push('/main'))
       .catch((err) => console.log(err.message));
