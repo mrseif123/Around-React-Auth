@@ -157,7 +157,6 @@ function App() {
     authentication
       .authorize(email, password)
       .then((data) => {
-        console.log(data)
         if (data && data.token) {
           handleLogin();
         } else {
@@ -307,6 +306,7 @@ function App() {
             success={tooltipMode}
             onClose={closeAllPopups}
             loggedIn={loggedIn}
+            name={"result"}
           />
           <Header
             loggedIn={loggedIn}
