@@ -56,8 +56,8 @@ function App() {
     setIsInfoToolTipOpen(false);
   }
 
-  function handleToolTip(success) {
-    setTooltipMode(success);
+  function handleToolTip(res) {
+    setTooltipMode(res);
     setIsInfoToolTipOpen(true);
   }
 
@@ -184,7 +184,7 @@ function App() {
       .register(email, password)
       .then((res) => {
         if (!res.data) {
-          handleToolTip('error');
+          handleToolTip(false);
           throw new Error(`400 - ${res.message ? res.message : res.error}`);
         }
       })
@@ -194,13 +194,15 @@ function App() {
         return res;
       })
       .then((res) => {
-        handleToolTip('success');
+        handleToolTip(true);
         return res;
       })
       .then(resetForm)
       .catch((err) => {
+        setIsInfoToolTipOpen(true)
         console.log(err);
       });
+
   };
 
   function handleLogout() {
