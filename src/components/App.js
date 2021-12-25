@@ -239,12 +239,6 @@ function App() {
             onLogout={handleLogout}
             link={{ description: 'Sign up', to: '/signup' }}
           />
-          <InfoToolTip
-            isOpen={isInfoToolTipOpen}
-            success={tooltipMode}
-            onClose={closeAllPopups}
-            loggedIn={loggedIn}
-          />
           <Login
             loggedIn={loggedIn}
             email={email}
@@ -264,12 +258,6 @@ function App() {
             userEmail={email}
             loggedIn={loggedIn}
             link={{ description: 'Log in', to: '/signin' }}
-          />
-          <InfoToolTip
-            isOpen={isInfoToolTipOpen}
-            success={tooltipMode}
-            onClose={closeAllPopups}
-            loggedIn={loggedIn}
           />
           <Register
             email={email}
@@ -292,6 +280,12 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
+          />
+          <InfoToolTip
+            isOpen={isInfoToolTipOpen}
+            success={tooltipMode}
+            onClose={closeAllPopups}
+            loggedIn={loggedIn}
           />
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}

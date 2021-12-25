@@ -2,5 +2,6 @@
   font-size: 18px;
   font-weight: 500;
   line-height: 22px;
-  text-align: right;
+  margin-left: 60%;
+  /* margin-right: 24px; */
 }
