@@ -3,21 +3,11 @@ import { Link } from 'react-router-dom';
 
 function Register({
   handleRegisterSubmit,
-  history,
   email,
   setEmail,
   password,
   setPassword,
 }) {
-
-  React.useEffect(() => {
-    if (!history){
-      history = []
-    }
-    if (localStorage.getItem('token')){
-      history.push('/main')
-    }
-  }, [history]);
 
   return (
       <div className='authentication__container'>

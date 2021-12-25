@@ -28,7 +28,6 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [userEmail, setUserEmail] = React.useState('');
   const [tooltipMode, setTooltipMode] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -218,7 +217,7 @@ function App() {
         .getContent(token)
         .then((res) => {
           setLoggedIn(true);
-          setUserEmail(res.data.email);
+          setEmail(res.data.email);
         })
         .catch((err) => {
           console.log(err);
@@ -226,7 +225,7 @@ function App() {
     } else {
       setLoggedIn(false);
     }
-  }, [loggedIn, userEmail]);
+  }, [loggedIn, email]);
 
 
   return (
@@ -234,10 +233,10 @@ function App() {
       <Switch>
         <Route path='/signin'>
           <Header
-            userEmail={email}
             loggedIn={loggedIn}
+            email={email}
+            link={{ description: 'Log out', to: '/signin' }}
             onLogout={handleLogout}
-            link={{ description: 'Sign up', to: '/signup' }}
           />
           <Login
             loggedIn={loggedIn}
@@ -245,8 +244,7 @@ function App() {
             setEmail={setEmail}
             password={password}
             setPassword={setPassword}
-            userEmail={setUserEmail}
-            setUserEmail={setUserEmail}
+            setEmail={setEmail}
             handleLogin={handleLogin}
             handleLoginSubmit={handleLoginSubmit}
             onLogout={handleLogout}
@@ -255,9 +253,10 @@ function App() {
 
         <Route path='/signup'>
           <Header
-            userEmail={email}
             loggedIn={loggedIn}
-            link={{ description: 'Log in', to: '/signin' }}
+            email={email}
+            link={{ description: 'Log out', to: '/signin' }}
+            onLogout={handleLogout}
           />
           <Register
             email={email}
@@ -265,7 +264,7 @@ function App() {
             password={password}
             setPassword={setPassword}
             handleRegisterSubmit={handleRegisterSubmit}
-            setUserEmail={setUserEmail}
+            setEmail={setEmail}
             handleLogin={handleLogin}
           />
           </Route>
@@ -275,17 +274,16 @@ function App() {
         </Route>
 
         <Route path='/main'>
-
+          <Header
+            loggedIn={loggedIn}
+            email={email}
+            link={{ description: 'Log out', to: '/signin' }}
+            onLogout={handleLogout}
+          />
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
-          />
-          <InfoToolTip
-            isOpen={isInfoToolTipOpen}
-            success={tooltipMode}
-            onClose={closeAllPopups}
-            loggedIn={loggedIn}
           />
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
@@ -304,13 +302,6 @@ function App() {
             onClose={closeAllPopups}
           />
           <ImagePopup onClose={closeAllPopups} card={selectedCard} />
-
-          <Header
-            loggedIn={loggedIn}
-            userEmail={email}
-            link={{ description: 'Log out', to: '/signin' }}
-            onLogout={handleLogout}
-          />
           <ProtectedRoute
             path='/main'
             loggedIn={loggedIn}
@@ -332,6 +323,12 @@ function App() {
         </Route>
         <Redirect from='*' to='/main' />
       </Switch>
+      <InfoToolTip
+        isOpen={isInfoToolTipOpen}
+        success={tooltipMode}
+        onClose={closeAllPopups}
+        loggedIn={loggedIn}
+      />
     </CurrentUserContext.Provider>
   );
 }

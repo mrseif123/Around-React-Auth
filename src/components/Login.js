@@ -4,8 +4,6 @@ import { Link, useHistory} from 'react-router-dom';
 function Login({
     email,
     loggedIn,
-    userEmail,
-    setUserEmail,
     password,
     setPassword,
     handleLoginSubmit,
@@ -17,7 +15,7 @@ function Login({
   React.useEffect(() => {
     if (loggedIn) {
       history.push('/main');
-      setUserEmail(email || userEmail);
+      setEmail(email);
     }
   }, [loggedIn]);
 
