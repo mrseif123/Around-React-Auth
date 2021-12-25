@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import logo from '../images/header-vector.svg';
 
 function Header(props) {
-  console.log(props)
   return (
     <header className='header'>
       <img className='header__vector' src={logo} alt='logo' />
