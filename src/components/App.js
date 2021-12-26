@@ -244,7 +244,6 @@ function App() {
             setEmail={setEmail}
             password={password}
             setPassword={setPassword}
-            setEmail={setEmail}
             handleLogin={handleLogin}
             handleLoginSubmit={handleLoginSubmit}
             onLogout={handleLogout}
@@ -264,7 +263,6 @@ function App() {
             password={password}
             setPassword={setPassword}
             handleRegisterSubmit={handleRegisterSubmit}
-            setEmail={setEmail}
             handleLogin={handleLogin}
           />
           </Route>
