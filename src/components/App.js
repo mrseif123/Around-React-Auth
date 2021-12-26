@@ -235,7 +235,7 @@ function App() {
           <Header
             loggedIn={loggedIn}
             email={email}
-            link={{ description: 'Log out', to: '/signin' }}
+            link={{ description: 'Sign up', to: '/signup' }}
             onLogout={handleLogout}
           />
           <Login
@@ -255,7 +255,7 @@ function App() {
           <Header
             loggedIn={loggedIn}
             email={email}
-            link={{ description: 'Log out', to: '/signin' }}
+            link={{ description: 'Log In', to: '/signin' }}
             onLogout={handleLogout}
           />
           <Register
@@ -322,6 +322,7 @@ function App() {
           <Footer />
         </Route>
         <Redirect from='*' to='/main' />
+
       </Switch>
       <InfoToolTip
         isOpen={isInfoToolTipOpen}

@@ -13,13 +13,6 @@ function ProtectedRoute({ component: Component, ...props }) {
       }
     </Route>
   );
-
-  //   return (
-  //   <Route>
-  //     {
-  //       <Component {...props} /> }
-  //   </Route>
-  // );
 }
 
 export default ProtectedRoute;
